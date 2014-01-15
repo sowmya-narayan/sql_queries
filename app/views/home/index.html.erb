@@ -1,6 +1,7 @@
 
 <%= form_tag "/", :method => :post do %>
-  <%= text_field_tag "query" %>
+  <%= text_area_tag 'query', params[:query], rows: 10, cols: 150 %>
+  <br>
   <%= submit_tag "Submit" %>
 <% end %>
 <br>
