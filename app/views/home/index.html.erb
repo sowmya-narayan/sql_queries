@@ -1,0 +1,29 @@
+
+<%= form_tag "/", :method => :post do %>
+  <%= text_area_tag 'query', params[:query], rows: 10, cols: 150 %>
+  <br>
+  <%= submit_tag "Submit" %>
+<% end %>
+<br>
+<br>
+<br>
+
+
+<table border="1">
+  <thead>
+    <tr>
+      <% @header.each do |h| %>
+          <td><%= h %></td>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @data.each do |v| %>
+      <tr>
+        <% v.each do |value| %>
+          <td><%= value %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
