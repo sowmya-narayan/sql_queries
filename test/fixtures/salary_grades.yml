@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  grade: MyString
+  lower_bond: 1
+  upper_bond: 1
+
+two:
+  grade: MyString
+  lower_bond: 1
+  upper_bond: 1

@@ -22,3 +22,11 @@ Employee.create(last_name: "Doyle", first_name: "Jean", middle_name: "K", job_id
 Employee.create(last_name: "Dennis", first_name: "Lynn", middle_name: "S", job_id: Job.where(function: "Manager").last.id, manager_id: 7839, hiredate: "15-May-1985", salary: 2750, comm: nil, department_id: Department.where(name: "Sales").last.id)
 Employee.create(last_name: "Baker", first_name: "Leslie", middle_name: "D", job_id: Job.where(function: "Manager").last.id, manager_id: 7839, hiredate: "10-Jun-1985", salary: 2200, comm: nil, department_id: Department.where(name: "Operations").last.id)
 Employee.create(last_name: "Wark", first_name: "Cynthia", middle_name: "D", job_id: Job.where(function: "SalesPerson").last.id, manager_id: 7698, hiredate: "22-Feb-1985", salary: 1250, comm: 500, department_id: Department.where(name: "Sales").last.id)
+
+
+sal= {1=> {700=> 1200}, 2=> {1201=> 1400}, 3=> {1401=> 2000}, 4=> {2001=> 3000}, 5=> {3001=> 900} }
+sal.each do |gr, value|
+  value.each do |lb, ub|
+    SalaryGrade.create(grade: gr, lower_bond: lb, upper_bond: ub)
+  end
+end

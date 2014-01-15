@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113052456) do
+ActiveRecord::Schema.define(version: 20140115073504) do
 
   create_table "departments", force: true do |t|
     t.string   "name"
@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(version: 20140113052456) do
 
   create_table "locations", force: true do |t|
     t.string   "regional_group"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "salary_grades", force: true do |t|
+    t.string   "grade"
+    t.integer  "lower_bond"
+    t.integer  "upper_bond"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
