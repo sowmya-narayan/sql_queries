@@ -16,12 +16,12 @@ end
   Job.create(function: title)
 end
 
-Employee.create(last_name: "Smith", first_name: "Jhon", middle_name: "Q", job_id: Job.where(function: "Clerk").last.id, manager_id: 7902, hiredate: "17-Dec-1984", salary: 800, comm: nil, department_id: Department.where(name: "Research").last.id)
-Employee.create(last_name: "Allen", first_name: "Kevin", middle_name: "J", job_id: Job.where(function: "SalesPerson").last.id, manager_id: 7698, hiredate: "20-Feb-1985", salary: 1600, comm: 300, department_id: Department.where(name: "Sales").last.id)
-Employee.create(last_name: "Doyle", first_name: "Jean", middle_name: "K", job_id: Job.where(function: "Manager").last.id, manager_id: 7839, hiredate: "04-Apr-1985", salary: 2850, comm: nil, department_id: Department.where(name: "Sales").last.id)
-Employee.create(last_name: "Dennis", first_name: "Lynn", middle_name: "S", job_id: Job.where(function: "Manager").last.id, manager_id: 7839, hiredate: "15-May-1985", salary: 2750, comm: nil, department_id: Department.where(name: "Sales").last.id)
-Employee.create(last_name: "Baker", first_name: "Leslie", middle_name: "D", job_id: Job.where(function: "Manager").last.id, manager_id: 7839, hiredate: "10-Jun-1985", salary: 2200, comm: nil, department_id: Department.where(name: "Operations").last.id)
-Employee.create(last_name: "Wark", first_name: "Cynthia", middle_name: "D", job_id: Job.where(function: "SalesPerson").last.id, manager_id: 7698, hiredate: "22-Feb-1985", salary: 1250, comm: 500, department_id: Department.where(name: "Sales").last.id)
+Employee.create(last_name: "Smith", first_name: "Jhon", middle_name: "Q", job_id: Job.where(function: "Clerk").last.id, manager_id: Random.rand(1..6), hiredate: "17-Dec-1984", salary: 800, comm: nil, department_id: Department.where(name: "Research").last.id)
+Employee.create(last_name: "Allen", first_name: "Kevin", middle_name: "J", job_id: Job.where(function: "SalesPerson").last.id, manager_id: Random.rand(1..6), hiredate: "20-Feb-1985", salary: 1600, comm: 300, department_id: Department.where(name: "Sales").last.id)
+Employee.create(last_name: "Doyle", first_name: "Jean", middle_name: "K", job_id: Job.where(function: "Manager").last.id, manager_id: Random.rand(1..6), hiredate: "04-Apr-1985", salary: 2850, comm: nil, department_id: Department.where(name: "Sales").last.id)
+Employee.create(last_name: "Dennis", first_name: "Lynn", middle_name: "S", job_id: Job.where(function: "Manager").last.id, manager_id: Random.rand(1..6), hiredate: "15-May-1985", salary: 2750, comm: nil, department_id: Department.where(name: "Sales").last.id)
+Employee.create(last_name: "Baker", first_name: "Leslie", middle_name: "D", job_id: Job.where(function: "Manager").last.id, manager_id: Random.rand(1..6), hiredate: "10-Jun-1985", salary: 2200, comm: nil, department_id: Department.where(name: "Operations").last.id)
+Employee.create(last_name: "Wark", first_name: "Cynthia", middle_name: "D", job_id: Job.where(function: "SalesPerson").last.id, manager_id: Random.rand(1..6), hiredate: "22-Feb-1985", salary: 1250, comm: 500, department_id: Department.where(name: "Sales").last.id)
 
 
 sal= {1=> {700=> 1200}, 2=> {1201=> 1400}, 3=> {1401=> 2000}, 4=> {2001=> 3000}, 5=> {3001=> 900} }
