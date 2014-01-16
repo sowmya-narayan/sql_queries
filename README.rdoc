@@ -1,31 +1,565 @@
-== README
+Simple Queries:-
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+  1) List all the employee details
 
-Things you may want to cover:
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e;
 
-* Ruby version
+  2) List all the department details
 
-* System dependencies
+    SELECT d.id, d.name, d.location_id
+    FROM departments d;
 
-* Configuration
+  3) List all job details
 
-* Database creation
+    SELECT j.id, j.function
+    FROM jobs j;
 
-* Database initialization
+  4) List all the Locations
 
-* How to run the test suite
+    SELECT l.id, l.regional_group
+    FROM locations l;
 
-* Services (job queues, cache servers, search engines, etc.)
+  5) List out first name, last name, salary, commission for all employees
 
-* Deployment instructions
+    SELECT e.first_name, e.last_name, e.salary, e.comm
+    FROM employees e;
 
-* ...
+  6) List out employee id, last name, department id for all employees and rename employee id as "ID of the employee", last name as "Name of the employee", department id as "department ID".
+
+    SELECT e.id 'ID of the employee', e.last_name 'Name of the employee', e.department_id 'department ID'
+    FROM employees e;
+
+  7) List out the employees anuual salary with their names only.
+
+    SELECT concat(e.first_name, ' ', coalesce(e.middle_name, ''), ' ', e.last_name) EmpName, e.salary*12 'Annual Salary'
+    FROM employees e;
+
+Where Conditions:-
+
+  8) List the details about 'SMITH'
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE LOWER(e.first_name) = 'smith' or LOWER(e.last_name) = 'smith' or LOWER(e.middle_name) = 'smith';
+
+  9) List out the employees who are working in department 2
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.department_id = 2;
+
+  10) List out the employees who are earning salary between 2000 and 2500
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.salary BETWEEN 2000 AND 2500;
+
+  11) List out the employees who are working in department 1 or 2;
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.department_id IN (1, 2);
+    
+  12) Find out the employees who are not working in department 1 or 3;
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.department_id NOT IN (1, 3);
+
+  13) List out the employees whose name starts with "S"
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.last_name LIKE "S%"
+
+  14) List out the employees whose name starts with "S" and end with "H"
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.last_name LIKE "S%H"
+
+  15) List out the employees whose name length is 5 and start with "S"
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.last_name LIKE "S%" AND LENGTH(e.last_name) = 5
+
+  16) List out the employees who are working in department 2 and draw the salaries more than 2500
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.department_id = 2 AND e.salary > 2500;
+
+  17) List out the employees who are not receiving commission.
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    Where e.comm IS NULL;
+
+Order By Clause:-
+
+  18) List out the employee id, last name in ascending order based on the employee id.
+
+    SELECT e.id, e.last_name
+    FROM employees e
+    ORDER BY e.id ASC;
+
+  19) List out the employee id, name and salary in descending order based on salary column.
+
+    SELECT e.id, e.last_name, e.salary
+    FROM employees e
+    ORDER BY e.salary DESC;
+
+  20) List out the employee details according to their last_name in ascending order and salaries in descending order.
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    ORDER BY e.last_name ASC, e.salary DESC;
+
+  21) List out the employees details according to their last_name in ascending order and then on department_id in descending order.
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    ORDER BY e.last_name ASC, e.department_id DESC;
+
+Group By & Having Clause:-
+
+  22) How many employees who are working in different departments wise in the organization.
+
+    SELECT e.department_id, count(1) DeptCount
+    FROM employees e
+    GROUP BY e.department_id;
+
+  23***) List out the department wise maximum salary, minimum salary and average salary of the employees.
+
+    SELECT e.department_id, MAX(e.salary) DeptMaxSalary, MIN(e.salary) DeptMinSalary, AVG(e.salary) DeptAvgSalary
+    FROM employees e
+    GROUP BY e.department_id;
+
+  24) List out the job wise maximum salary, minimum salary and average salaries of the employees.
+
+    SELECT e.department_id, MAX(e.salary) DeptMaxSalary, MIN(e.salary) DeptMinSalary, AVG(e.salary) DeptAvgSalary
+    FROM employees e
+    GROUP BY e.job_id;
+
+  25) List out the no.of employees joined in every month in ascending order.   
+    
+    SELECT DATE_FORMAT(e.hiredate, "%m") month, count(1) EmpCount
+    FROM employees e
+    GROUP BY DATE_FORMAT(e.hiredate, "%m")
+    ORDER BY month;
+
+  26) List out the no.of employees for each month and year, in the ascending order based on the year, month.
+
+    SELECT DATE_FORMAT(e.hiredate, "%m") month, DATE_FORMAT(e.hiredate, "%y") year, count(1) EmpCount
+    FROM employees e
+    GROUP BY DATE_FORMAT(e.hiredate, "%m"), DATE_FORMAT(e.hiredate, "%y")
+    ORDER BY year, month;
+
+  27) List out the department id having atleast four employees.
+
+    SELECT department_id, count(1)
+    FROM employees
+    GROUP BY department_id
+    HAVING count(1) >= 4
+
+  28) How many employees in January month.
+
+    SELECT DATE_FORMAT(e.hiredate, "%m") month, count(1) EmpCount
+    FROM employees e
+    WHERE DATE_FORMAT(e.hiredate, "%m") = 1;
+
+  29) How many employees who are joined in January or September month.
+
+    SELECT DATE_FORMAT(e.hiredate, "%m") month, count(1) EmpCount
+    FROM employees e
+    WHERE DATE_FORMAT(e.hiredate, "%m") IN (1, 9);
+
+  30) How many employees who are joined in 1985.
+
+    SELECT DATE_FORMAT(e.hiredate, "%Y") year, count(1) EmpCount
+    FROM employees e
+    WHERE DATE_FORMAT(e.hiredate, "%Y") = '1985';
+
+  31) How many employees joined each month in 1985.
+
+    SELECT DATE_FORMAT(e.hiredate, "%Y") year, DATE_FORMAT(e.hiredate, "%m") month, count(1) EmpCount
+    FROM employees e
+    WHERE DATE_FORMAT(e.hiredate, "%Y") = '1985'
+    GROUP BY DATE_FORMAT(e.hiredate, "%m");
+
+  32) How many employees who are joined in March 1985.
+
+    SELECT DATE_FORMAT(e.hiredate, "%Y") year, DATE_FORMAT(e.hiredate, "%m") month, count(1) EmpCount
+    FROM employees e
+    WHERE DATE_FORMAT(e.hiredate, "%Y") = '1985' AND DATE_FORMAT(e.hiredate, "%m") = 3
+
+  33) Which is the department id, having greater than or equal to 2 employees joined in FEBRUARY 1985
+
+    SELECT e.department_id, DATE_FORMAT(e.hiredate, "%Y") year, DATE_FORMAT(e.hiredate, "%m") month, count(1) EmpCount
+    FROM employees e
+    WHERE DATE_FORMAT(e.hiredate, "%Y") = '1985' AND DATE_FORMAT(e.hiredate, "%m") = 2
+    GROUP BY DATE_FORMAT(e.hiredate, "%Y"), DATE_FORMAT(e.hiredate, "%m"), e.department_id
+    HAVING count(1) >= 2
+
+Sub-Queries:-
+
+  34) Display the employees who got the maximum salary.
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.salary = 
+    (
+      SELECT MAX(ie.salary)
+      FROM employees ie
+    );
+
+  35) Display the employees who are working in Sales department.
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.department_id = 
+    (
+      SELECT id.id
+      FROM departments id
+      WHERE LOWER(id.name) = 'sales' 
+    );
+
+  36) Display the employees who are working as "Clerk"
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.job_id = 
+    (
+      SELECT id.id
+      FROM jobs id
+      WHERE LOWER(id.function) = 'clerk' 
+    );
+    
+  37) Display the employees who are working in "CHICAGO"
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.department_id IN 
+    (
+      SELECT d.id
+      FROM departments d
+      WHERE d.location_id IN 
+      (
+        SELECT l.id
+        FROM locations l
+        WHERE LOWER(l.regional_group) = 'chicago'
+      )
+    );
+
+  38) Find out no.of employees working in "Sales department".
+
+    SELECT e.department_id, COUNT(1)
+    FROM employees e
+    WHERE e.department_id =
+    (
+      SELECT d.id
+      FROM departments d
+      WHERE LOWER(d.name) = 'sales'
+    );
+
+  39) Select the employees salaries, who are working as Clerk on the basis of 10%.
+
+    SELECT e.last_name, e.salary, e.salary + e.salary/10 '10% Incremented Salary'
+    FROM employees e
+    WHERE e.job_id =
+      (
+        SELECT j.id
+        FROM jobs j
+        WHERE LOWER(j.function) = 'clerk'
+      );
+
+  40) Select the employees who are working in research department.
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e
+    WHERE e.department_id =
+    (
+      SELECT d.id
+      FROM departments d
+      WHERE LOWER(d.name) = 'research'
+    );
+
+  41) Display the second highest salary drawing employee details
+
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id
+    FROM employees e1
+    WHERE e1.salary =
+    (
+      SELECT MAX(salary)
+      FROM employees e2
+      WHERE e2.salary < 
+      (
+        SELECT MAX(salary)
+        FROM employees e3
+      )
+    );
+
+  42) Display the nth highest salary drawing employee details
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id
+    FROM employees e1
+    WHERE &n - 1 = 
+    (
+      SELECT COUNT(DISTINCT(e2.salary))
+      FROM employees e2
+      WHERE e2.salary > e1.salary
+    );
+
+Sub-Query Operators: (ALL, ANY, SOME, EXISTS):-
+
+  43) List out the employees who earn more than every employee in department 2.
+
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id
+    FROM employees e1
+    WHERE e1.salary > ALL 
+    (
+      SELECT e2.salary
+      FROM employees e2
+      WHERE e2.department_id = 4
+    );
+
+    OR
+
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id
+    FROM employees e1
+    WHERE e1.salary >  
+    (
+      SELECT MAX(e2.salary)
+      FROM employees e2
+      WHERE e2.department_id = 4
+    );
+
+  44) List out the employees who earn more than the lowest salary in department 30.
+
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id
+    FROM employees e1
+    WHERE e1.salary > ANY 
+    (
+      SELECT e2.salary
+      FROM employees e2
+      WHERE e2.department_id = 2
+    );
+
+    OR
+
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id
+    FROM employees e1
+    WHERE e1.salary >  
+    (
+      SELECT MIN(e2.salary)
+      FROM employees e2
+      WHERE e2.department_id = 2
+    );
+
+  45) Find out whose department has not employees.
+
+    SELECT d.id, d.name, d.location_id
+    FROM departments d
+    WHERE NOT EXISTS 
+      (
+        SELECT e.department_id
+        FROM employees e
+        WHERE d.id = e.department_id
+      );
+
+  46) Find out which department does not have any employees.
+
+    SAME AS ABOVE
+
+Co-Related Sub Queries:-
+
+  47) Find out the employees who earn greater than the average salary for their department.
+
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id
+    FROM employees e1
+    WHERE e1.salary > 
+    (
+      SELECT AVG(e2.salary)
+      FROM employees e2
+      WHERE e2.department_id = e1.department_id
+    );
+
+Joins:-
+
+  Simple Join:-
+
+  48) List out employees with their department names
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id, d.name
+    FROM employees e, departments d
+    WHERE d.id = e.department_id; 
+
+  49) Display employees with their designations (jobs)
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id, j.function
+    FROM employees e, jobs j
+    WHERE j.id = e.job_id;
+
+  50) Display the employees with their department name and regional groups
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id, d.name, l.regional_group
+    FROM employees e, departments d, locations l
+    WHERE d.id = e.department_id AND l.id = d.location_id;
+
+  51) How many employees who are working in different departments and display with department name.
+
+    SELECT d.name, count(1)
+    FROM employees e, departments d
+    WHERE d.id = e.department_id
+    GROUP BY d.name;
+
+  52) How many employees who are working in sales department.
+
+    SELECT d.name, count(1)
+    FROM employees e, departments d
+    WHERE d.id = e.department_id AND LOWER(d.name) = 'sales'
+    GROUP BY d.name;
+
+  53) Which is the department having greater than or equal to 3 employees and display the department names in ascending order.
+
+    SELECT d.name, count(1)
+    FROM employees e, departments d
+    WHERE d.id = e.department_id
+    GROUP BY e.department_id
+    HAVING COUNT(1) >= 3
+    ORDER BY d.name;
+
+  54) How many jobs in the organization with designations.
+
+    SELECT j.function, count(1)
+    FROM jobs j, employees e
+    WHERE j.id = e.job_id
+    GROUP BY j.id;
+
+  55) How many employees working in 'New York'
+
+    SELECT l.regional_group, COUNT(1)
+    FROM employees e, departments d, locations l
+    WHERE d.id = e.department_id AND d.location_id = l.id
+    GROUP BY l.regional_group;
+
+Non-Equi Join:-
+
+  56) Display employee details with salary grades.
+
+    SELECT e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id, s.grade
+    FROM employees e, salary_grades s
+    WHERE e.salary BETWEEN s.lower_bond AND s.upper_bond;
+
+  57) List out the no. of employees on grade wise.
+
+    SELECT s.grade, count(1) 'Emp Count'
+    FROM employees e, salary_grades s
+    WHERE e.salary BETWEEN s.lower_bond AND s.upper_bond
+    GROUP BY s.grade;
+
+  58) Display the employ salary grades and no. of employees between 2000 to 5000 range of salary.
+
+    SELECT s.grade, count(1) 'Emp Count'
+    FROM employees e, salary_grades s
+    WHERE e.salary BETWEEN s.lower_bond AND s.upper_bond AND s.lower_bond >= 2000 AND s.upper_bond <= 5000
+    GROUP BY s.grade;
+
+Self Join:-
+
+  59) Display the employee details with their manager names.
+
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id, e2.last_name
+    FROM employees e1 LEFT JOIN employees e2
+    ON e2.id = e1.manager_id;
+
+  60) Display the employee details who earn more than their managers salaries.
+
+    SELECT e1.id, e1.last_name, e1.first_name, e1.middle_name, e1.job_id, e1.manager_id, e1.hiredate, e1.salary, e1.comm, e1.department_id, e2.last_name, e2.salary
+    FROM employees e1 LEFT JOIN employees e2
+    ON e2.id = e1.manager_id
+    WHERE e1.salary > e2.salary;
+
+  61) Show the no. of employees working under every manager.
+
+    SELECT e2.last_name, count(1) 'EmpCount'
+    FROM employees e1 INNER JOIN employees e2
+    ON e2.id = e1.manager_id
+    GROUP BY e1.manager_id;
+
+Outer Join:-
+
+  62) Display employee details with all departments.
+
+    SELECT d.name, e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e RIGHT JOIN departments d
+    ON d.id = e.department_id;
+
+  63) Display all employees in sales or operation departments.
+
+    SELECT d.name, e.id, e.last_name, e.first_name, e.middle_name, e.job_id, e.manager_id, e.hiredate, e.salary, e.comm, e.department_id
+    FROM employees e RIGHT JOIN departments d
+    ON d.id = e.department_id
+    WHERE LOWER(d.name) IN ('sales', 'operations');
+
+Set Operators:-
+
+  64) List out the distinct jobs in Sales and Accounting Departments.
+
+    SELECT j.function
+    FROM jobs j
+    WHERE j.id IN 
+    (
+      SELECT e.job_id
+      FROM employees e, departments d
+      WHERE d.id = e.department_id AND LOWER(d.name) = 'sales'
+    )
+    UNION
+    SELECT j.function
+    FROM jobs j
+    WHERE j.id IN 
+    (
+      SELECT e.job_id
+      FROM employees e, departments d
+      WHERE d.id = e.department_id AND LOWER(d.name) = 'accounting'
+    );
+
+    OR
+
+    SELECT DISTINCT(j.function)
+    FROM employees e, departments d, jobs j
+    WHERE d.id = e.department_id AND j.id = e.job_id AND LOWER(d.name) IN ('sales', 'accounting');
+
+  65) List out all jobs in sales and accounting departments.
+
+    SELECT j.function
+    FROM jobs j
+    WHERE j.id IN 
+    (
+      SELECT e.job_id
+      FROM employees e, departments d
+      WHERE d.id = e.department_id AND LOWER(d.name) = 'accounting'
+    )
+    UNION ALL
+    SELECT j.function
+    FROM jobs j
+    WHERE j.id IN 
+    (
+      SELECT e.job_id
+      FROM employees e, departments d
+      WHERE d.id = e.department_id AND LOWER(d.name) = 'sales'
+    );
+
+  66) List out the common jobs in Research and Accounting Departments in descending order.
+
+    SELECT DISTINCT(j.function)
+    FROM employees e, departments d, jobs j
+    WHERE d.id = e.department_id AND j.id = e.job_id AND LOWER(d.name) IN ('accounting', 'research')
+    ORDER BY j.function DESC;
+
+    Note:- There is no intersect operator in mysql
 
 
-Find a file SQL_QURRIES To Practise.doc for more info.!
